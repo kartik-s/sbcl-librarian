@@ -11,6 +11,7 @@
            #:build-bindings
            #:build-python-bindings
            #:build-core-and-die
+           #:append-core-to-runtime-and-die
 
            #:loader
            #:handles

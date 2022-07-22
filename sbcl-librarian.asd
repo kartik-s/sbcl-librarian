@@ -17,7 +17,8 @@
                (:file "python-bindings")
                (:file "handles")
                (:file "loader")
-               (:file "environment")))
+               (:file "environment")
+               (:file "shrinkwrap")))
 
 (asdf:defsystem #:sbcl-librarian/tests
   :description "Tests for sbcl-librarian."
