@@ -79,6 +79,7 @@
   (format stream "  if (initialized) return 1;~%")
   (format stream "  if (initialize_lisp(~a, init_args) != 0) return -1;~%"
           (+ 4 (length initialize-lisp-args)))
+  (format stream "  initialize_thread();")
   (format stream "  initialized = 1;~%")
   (format stream "  return 0; }"))
 
@@ -113,6 +114,9 @@
                             :if-exists :supersede)
       (format stream "#define ~A~%~%" build-flag)
       (format stream "#include ~s~%~%" header-name)
+      (terpri stream)
+      (format stream "struct fiber_args { void *alien_fiber; void *lisp_fiber; };~%")
+      (format stream "void initialize_thread(void) { void *alien_fiber = ConvertThreadToFiber(NULL); struct fiber_args args; args.alien_fiber = alien_fiber; void *lisp_fiber = CreateFiber(0, answer_alien_calls_forever, &args); args.lisp_fiber = lisp_fiber; SwitchToFiber(lisp_fiber); }~%")
       (dolist (api (library-apis library))
         (write-api-to-source api stream))
       (unless omit-init-function
