@@ -61,7 +61,7 @@
                              :function-prefix function-prefix
                              :error-map error-map)
       `(progn
-         (sb-alien:define-alien-callable
+         (sb-alien:define-fast-alien-callable
              ,callable-name
              ,(sb-alien-type return-type)
              (,@(loop :for (arg type) :in typed-lambda-list
