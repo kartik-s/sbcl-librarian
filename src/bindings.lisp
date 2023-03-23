@@ -113,7 +113,8 @@
                             :direction :output
                             :if-exists :supersede)
       (format stream "#define ~A~%~%" build-flag)
-      (format stream "#include ~s~%~%" header-name)
+      (format stream "#include ~s~%" header-name)
+      (format stream "#include <Windows.h>~%~%")
       (terpri stream)
       (format stream "struct fiber_args { void *alien_fiber; void *lisp_fiber; };~%")
       (format stream "extern ~A void (*answer_alien_calls_forever)(void *args);~%" linkage)
