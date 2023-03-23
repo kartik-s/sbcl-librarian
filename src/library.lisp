@@ -69,5 +69,5 @@ NOTE: Here, the APIs must already be defined elsewhere."
     (sb-ext:save-lisp-and-die
      (merge-pathnames core-name directory)
      :compression compression
-     :callable-exports (cons (uiop:find-symbol* 'answer-alien-calls-forever *package*)
+     :callable-exports (cons (uiop:find-symbol* "answer-alien-calls-forever" *package*)
                              (callable-exports library)))))
