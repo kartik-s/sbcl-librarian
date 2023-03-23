@@ -117,7 +117,7 @@
       (format stream "#include <Windows.h>~%~%")
       (terpri stream)
       (format stream "struct fiber_args { void *alien_fiber; void *lisp_fiber; };~%")
-      (format stream "extern ~A void (*answer_alien_calls_forever)(void *args);~%" linkage)
+      (format stream "void ~A (*answer_alien_calls_forever)(void *args);~%" linkage)
       (format stream "void ~A initialize_thread(void) { void *alien_fiber = ConvertThreadToFiber(NULL); struct fiber_args args; args.alien_fiber = alien_fiber; void *lisp_fiber = CreateFiber(0, answer_alien_calls_forever, &args); args.lisp_fiber = lisp_fiber; SwitchToFiber(lisp_fiber); }~%" linkage)
       (dolist (api (library-apis library))
         (write-api-to-source api stream))
