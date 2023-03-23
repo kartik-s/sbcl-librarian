@@ -37,7 +37,7 @@
     (unless omit-init-call
       (format stream "~a.init(str(libpath.parent / '~a.core').encode('utf-8'))~%~%"
               name name))
-    (format stream "def initialize_thread:~%")
+    (format stream "def initialize_thread():~%")
     (format stream "    ~a.initialize_thread()~%~%" name)))
 
 (defun write-api-to-python (api library-name stream)
