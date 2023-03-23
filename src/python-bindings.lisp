@@ -71,4 +71,4 @@
                      :append (write-api-to-python api (library-c-name library) stream))))
         (format stream "~%~%__all__ = [~{'~a'~^, ~}]~%~%"
                 api-exports)
-        (format stream "__all__.append('initialize_thread')")))))
+        (format stream "__all__.append('initialize_thread')~%")))))
