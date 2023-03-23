@@ -36,7 +36,9 @@
     (format stream "~a = CDLL(str(libpath), mode=RTLD_GLOBAL)~%~%" name)
     (unless omit-init-call
       (format stream "~a.init(str(libpath.parent / '~a.core').encode('utf-8'))~%~%"
-              name name))))
+              name name))
+    (format stream "def initialize_thread:~%")
+    (format stream "    ~a.initialize_thread()~%~%" name)))
 
 (defun write-api-to-python (api library-name stream)
   (loop :for (kind . things) :in (api-specs api)
@@ -68,4 +70,5 @@
                (loop :for api :in (library-apis library)
                      :append (write-api-to-python api (library-c-name library) stream))))
         (format stream "~%~%__all__ = [~{'~a'~^, ~}]~%~%"
-                api-exports)))))
+                api-exports)
+        (format stream "__all__.append('initialize_thread')")))))
